@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_balance"
+        android:icon="@drawable/baseline_account_balance_black_48dp"
+        android:title="@string/balance" />
+
+    <item
+        android:id="@+id/navigation_envios"
+        android:icon="@drawable/baseline_screen_share_black_48dp"
+        android:title="@string/envios" />
+
+    <item
+        android:id="@+id/navigation_historial"
+        android:icon="@drawable/baseline_history_black_48dp"
+        android:title="@string/historial" />
+
+</menu>
