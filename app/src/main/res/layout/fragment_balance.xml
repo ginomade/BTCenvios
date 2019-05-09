@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="184dp"
-        android:layout_height="198dp"
+        android:layout_width="180dp"
+        android:layout_height="152dp"
         android:layout_marginBottom="28dp"
         android:src="@drawable/btc"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -19,13 +19,15 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="390dp"
+        android:layout_height="59dp"
         android:layout_marginBottom="39dp"
         android:text="Balance actual"
-        android:textSize="28sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 

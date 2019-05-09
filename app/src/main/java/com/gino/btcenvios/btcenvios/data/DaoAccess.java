@@ -1,5 +1,6 @@
 package com.gino.btcenvios.btcenvios.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -21,8 +22,11 @@ public interface DaoAccess {
     List<SavedOperations> fetchOperations();
 
     @Query("SELECT * FROM Balance LIMIT 1")
-    Balance fetchBalance();
+    LiveData<Balance> fetchBalance();
 
     @Insert
     void insertBalance(Balance balance);
+
+    @Query("DELETE FROM Balance")
+    void deleteBalance();
 }

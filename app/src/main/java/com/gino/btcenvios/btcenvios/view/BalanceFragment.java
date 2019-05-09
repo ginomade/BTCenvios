@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
 
 import com.gino.btcenvios.R;
@@ -24,6 +26,9 @@ public class BalanceFragment extends Fragment {
     private OperationsDataBase operationsDatabase;
 
     TextView vBalance;
+
+    BalanceViewModel viewModel;
+
     public BalanceFragment() {
         // Required empty public constructor
     }
@@ -47,17 +52,29 @@ public class BalanceFragment extends Fragment {
                 OperationsDataBase.class, DATABASE_NAME)
                 .build();
 
-        Balance balance = operationsDatabase.daoAccess.fetchBalance();
-        vBalance.setText(String.valueOf(balance.getCurrent()));
+        viewModel = ViewModelProviders.of(getActivity()).get(BalanceViewModel.class);
+        viewModel.getBalance().observe(this, new Observer<Balance>() {
+            @Override
+            public void onChanged(Balance balance) {
+                vBalance.setText(balance.getCurrent().toString());
+            }
+        });
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vBalance = (TextView) getView().findViewById(R.id.tv_value);
-        return inflater.inflate(R.layout.fragment_balance, container, false);
+        View view = inflater.inflate(R.layout.fragment_balance, container, false);
+        vBalance = (TextView) view.findViewById(R.id.tv_value);
 
+        return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

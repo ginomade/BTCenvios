@@ -1,35 +1,26 @@
 package com.gino.btcenvios.btcenvios.view;
 
 import android.os.Bundle;
-
-import com.gino.btcenvios.R;
-import com.gino.btcenvios.btcenvios.data.OperationsDataBase;
-import com.gino.btcenvios.btcenvios.model.Balance;
-import com.gino.btcenvios.btcenvios.model.Rates;
-import com.gino.btcenvios.btcenvios.net.GetRatesServiceImpl;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
-
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
-import retrofit2.Call;
+import com.gino.btcenvios.R;
+import com.gino.btcenvios.btcenvios.model.Balance;
+import com.gino.btcenvios.btcenvios.net.GetRatesServiceImpl;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private GetRatesServiceImpl service;
 
     private FrameLayout vMainContent;
 
-    private static final String DATABASE_NAME = "BTCOperationsDB";
-    private OperationsDataBase operationsDatabase;
+    BalanceViewModel viewModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,22 +50,19 @@ public class MainActivity extends AppCompatActivity {
         vMainContent = findViewById(R.id.main_content);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //Call<List<Rates>> rates = service.service.listRates();
-
-
-        operationsDatabase = Room.databaseBuilder(getApplicationContext(),
-                OperationsDataBase.class, DATABASE_NAME)
-                .build();
-
+        viewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
         Balance balance = new Balance(100d);
-        operationsDatabase.daoAccess.insertBalance(balance);
+        viewModel.insertBalance(balance);
+
+        navigateTo(BalanceFragment.newInstance());
     }
 
     private void navigateTo(final Fragment toFragment) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-            fragmentTransaction.replace(R.id.main_content, toFragment);
+        fragmentTransaction.replace(R.id.main_content, toFragment);
 
-            fragmentTransaction.commit();
+        fragmentTransaction.commit();
     }
+
 }
