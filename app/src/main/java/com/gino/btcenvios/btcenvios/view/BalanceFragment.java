@@ -14,6 +14,7 @@ import androidx.room.Room;
 import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.data.OperationsDataBase;
 import com.gino.btcenvios.btcenvios.model.Balance;
+import com.gino.btcenvios.btcenvios.model.Rate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +27,8 @@ public class BalanceFragment extends Fragment {
     private OperationsDataBase operationsDatabase;
 
     TextView vBalance;
+    TextView vBalanceBtc;
+    Double mBalancePesos;
 
     BalanceViewModel viewModel;
 
@@ -57,6 +60,16 @@ public class BalanceFragment extends Fragment {
             @Override
             public void onChanged(Balance balance) {
                 vBalance.setText(balance.getCurrent().toString());
+                mBalancePesos = Double.parseDouble(balance.getCurrent().toString());
+
+                viewModel.getRates().observe(BalanceFragment.this, new Observer<Rate>() {
+                    @Override
+                    public void onChanged(Rate rate) {
+                        vBalanceBtc.setText(String.valueOf(mBalancePesos /
+                                Double.valueOf( rate.getRates().getARS_SELL())));
+                    }
+                });
+
             }
         });
 
@@ -68,7 +81,7 @@ public class BalanceFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_balance, container, false);
         vBalance = (TextView) view.findViewById(R.id.tv_value);
-
+        vBalanceBtc = (TextView) view.findViewById(R.id.tv_value_btc);
         return view;
     }
 
