@@ -128,6 +128,7 @@ public class SendFragment extends Fragment {
                                 Double.parseDouble(sendOperationData.getTotal())*
                                         Double.parseDouble(sendOperationData.getRate()));
                         sendViewModel.insertBalance(newBalance);
+                        sendViewModel.insertOperation(sendOperationData);
                         setStatusText("Operacion exitosa");
                     }else{
                         setStatusText("Balance Insuficiente");

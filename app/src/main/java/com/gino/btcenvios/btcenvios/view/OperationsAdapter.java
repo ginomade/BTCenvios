@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gino.btcenvios.BR;
 import com.gino.btcenvios.btcenvios.model.SavedOperations;
 
 import java.util.List;
@@ -22,10 +23,13 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
     private List<SavedOperations> operations;
     private int layoutId;
 
-    public OperationsAdapter(@LayoutRes int layoutId, HistoryViewModel viewModel, List<SavedOperations> operations) {
+    public OperationsAdapter(@LayoutRes int layoutId, HistoryViewModel viewModel) {
         this.viewModel = viewModel;
-        this.operations = operations;
         this.layoutId = layoutId;
+    }
+
+    void setList(List<SavedOperations> ops){
+        operations = ops;
     }
 
     @NonNull
@@ -56,7 +60,7 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
         }
 
         void bind(HistoryViewModel viewModel, Integer position) {
-            viewModel.fetchDogBreedImagesAt(position);
+            viewModel.getOperationAt(position);
             binding.setVariable(BR.viewModel, viewModel);
             binding.setVariable(BR.position, position);
             binding.executePendingBindings();
