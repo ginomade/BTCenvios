@@ -151,7 +151,8 @@ public class SendFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!vFee.getText().toString().equals("")
-                && !vAmount.getText().toString().equals("")) {
+                && !vAmount.getText().toString().equals("")
+                && sendOperationData.getRate() != null) {
                     Double total = Double.parseDouble(vFee.getText().toString()) /
                             Double.parseDouble(sendOperationData.getRate())
                             + Double.parseDouble(vAmount.getText().toString());

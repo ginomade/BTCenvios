@@ -1,6 +1,7 @@
 package com.gino.btcenvios.btcenvios.view;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gino.btcenvios.BR;
 import com.gino.btcenvios.btcenvios.model.SavedOperations;
+import com.gino.btcenvios.databinding.OperationsItemViewBinding;
 
 import java.util.List;
 
@@ -30,6 +32,11 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
 
     void setList(List<SavedOperations> ops){
         operations = ops;
+        notifyDataSetChanged();
+    }
+
+    protected int getLayoutIdForPosition(int position) {
+        return layoutId;
     }
 
     @NonNull
@@ -48,7 +55,7 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
 
     @Override
     public int getItemCount() {
-        return operations.size();
+        return operations == null ? 0 : operations.size();
     }
 
     class GenericViewHolder extends RecyclerView.ViewHolder {
@@ -61,8 +68,7 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
 
         void bind(HistoryViewModel viewModel, Integer position) {
             viewModel.getOperationAt(position);
-            binding.setVariable(BR.viewModel, viewModel);
-            binding.setVariable(BR.position, position);
+            binding.setVariable(BR.list, viewModel.getOperationAt(position));
             binding.executePendingBindings();
         }
 

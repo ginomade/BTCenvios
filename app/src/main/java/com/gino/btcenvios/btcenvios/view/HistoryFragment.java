@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.gino.btcenvios.BR;
 import com.gino.btcenvios.R;
@@ -19,7 +21,8 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
-    HistoryViewModel viewModel;
+    HistoryViewModel mViewModel;
+    private RecyclerView mRecyclerView;
 
     public static HistoryFragment newInstance() {
         HistoryFragment fragment = new HistoryFragment();
@@ -30,7 +33,6 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(HistoryViewModel.class);
 
     }
 
@@ -41,17 +43,17 @@ public class HistoryFragment extends Fragment {
                 container, false);
         View view = binding.getRoot();
 
-        binding.setModel(viewModel);
-        binding.setVariable(BR.model, viewModel);
-        binding.executePendingBindings();
-        viewModel.getOperations().observe(this, new Observer<List<SavedOperations>>() {
+        mViewModel = ViewModelProviders.of(getActivity()).get(HistoryViewModel.class);
+        mViewModel.init();
+
+        binding.setMymodel(mViewModel);
+        mViewModel.getOperations().observe(this, new Observer<List<SavedOperations>>() {
             @Override
             public void onChanged(List<SavedOperations> savedOperations) {
-                viewModel.setDataInAdapter(savedOperations);
+                mViewModel.setDataInAdapter(savedOperations);
 
             }
         });
-
         return view;
     }
 

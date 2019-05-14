@@ -35,7 +35,11 @@ public class HistoryViewModel extends AndroidViewModel {
 
     public HistoryViewModel(@NonNull Application application) {
         super(application);
-        dataBase = OperationsDataBase.getAppDatabase(application);
+
+    }
+
+    public void init(){
+        dataBase = OperationsDataBase.getAppDatabase(getApplication());
         mBalance = dataBase.daoAccess().fetchBalance();
         adapter = new OperationsAdapter(R.layout.operations_item_view, this);
     }
@@ -49,7 +53,7 @@ public class HistoryViewModel extends AndroidViewModel {
     }
 
 
-    void setDataInAdapter(List<SavedOperations> ops){
+    public void setDataInAdapter(List<SavedOperations> ops){
         adapter.setList(ops);
     }
 

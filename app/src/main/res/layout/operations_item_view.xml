@@ -4,11 +4,8 @@
 
     <data>
         <variable
-            name="position"
-            type="java.lang.Integer" />
-        <variable
-            name="viewModel"
-            type="com.gino.btcenvios.btcenvios.view.HistoryViewModel"/>
+            name="list"
+            type="com.gino.btcenvios.btcenvios.model.SavedOperations"/>
     </data>
 
     <LinearLayout
@@ -39,7 +36,7 @@
             android:orientation="vertical"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"
-            android:text="@{viewModel.getOperationAt(position).getAmount()}"
+            android:text="@{list.getDate().toString()}"
             android:textSize="22sp"
             tools:text="Test" />
     </LinearLayout>
