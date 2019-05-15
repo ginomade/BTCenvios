@@ -42,6 +42,7 @@ public class HistoryViewModel extends AndroidViewModel {
         dataBase = OperationsDataBase.getAppDatabase(getApplication());
         mBalance = dataBase.daoAccess().fetchBalance();
         adapter = new OperationsAdapter(R.layout.operations_item_view, this);
+        mOperations = new MutableLiveData<>();
     }
 
     public OperationsAdapter getAdapter() {

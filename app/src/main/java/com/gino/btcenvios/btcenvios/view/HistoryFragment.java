@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -39,23 +40,25 @@ public class HistoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentHistoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history,
-                container, false);
-        View view = binding.getRoot();
-
-        mViewModel = ViewModelProviders.of(getActivity()).get(HistoryViewModel.class);
-        mViewModel.init();
-
-        binding.setMymodel(mViewModel);
-        mViewModel.getOperations().observe(this, new Observer<List<SavedOperations>>() {
-            @Override
-            public void onChanged(List<SavedOperations> savedOperations) {
-                mViewModel.setDataInAdapter(savedOperations);
-
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        mRecyclerView = view.findViewById(R.id.list_recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        mViewModel = ViewModelProviders.of(getActivity()).get(HistoryViewModel.class);
+        mViewModel.init();
+        mRecyclerView.setAdapter(mViewModel.getAdapter());
+        mViewModel.getOperations()
+                .observe(getActivity(), new Observer<List<SavedOperations>>() {
+                    @Override
+                    public void onChanged(List<SavedOperations> savedOperations) {
+                        mViewModel.setDataInAdapter(savedOperations);
+                    }
+                });
+    }
 }

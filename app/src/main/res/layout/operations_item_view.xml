@@ -6,6 +6,9 @@
         <variable
             name="list"
             type="com.gino.btcenvios.btcenvios.model.SavedOperations"/>
+        <variable
+            name="position"
+            type="Integer"/>
     </data>
 
     <LinearLayout

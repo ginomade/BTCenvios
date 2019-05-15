@@ -3,6 +3,7 @@ package com.gino.btcenvios.btcenvios.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gino.btcenvios.BR;
+import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.model.SavedOperations;
 import com.gino.btcenvios.databinding.OperationsItemViewBinding;
 
@@ -42,15 +44,14 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
     @NonNull
     @Override
     public OperationsAdapter.GenericViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ViewDataBinding binding = DataBindingUtil.inflate(layoutInflater, viewType, parent, false);
-
-        return new GenericViewHolder(binding);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.operations_item_view,
+                new FrameLayout(parent.getContext()), false);
+        return new GenericViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OperationsAdapter.GenericViewHolder holder, int position) {
-        holder.bind(viewModel, position);
+        holder.setViewModel(viewModel);
     }
 
     @Override
@@ -59,18 +60,26 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
     }
 
     class GenericViewHolder extends RecyclerView.ViewHolder {
-        final ViewDataBinding binding;
+        ViewDataBinding binding;
 
-        GenericViewHolder(ViewDataBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        GenericViewHolder(View view) {
+            super(view);
+            bind();
         }
 
-        void bind(HistoryViewModel viewModel, Integer position) {
-            viewModel.getOperationAt(position);
-            binding.setVariable(BR.list, viewModel.getOperationAt(position));
-            binding.executePendingBindings();
+        void setViewModel(HistoryViewModel viewModel) {
+            if (binding != null) {
+                binding.setVariable(BR.list, viewModel.getOperations().getValue());
+
+            }
         }
 
+            void bind () {
+                if (binding == null) {
+                    binding = DataBindingUtil.bind(itemView);
+                }
+            }
+
+        }
     }
-}
+
