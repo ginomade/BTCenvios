@@ -9,4 +9,14 @@
     <string name="balance">Balance</string>
     <string name="envios">Envios</string>
     <string name="historial">Historial</string>
+    <string name="env_o_de_bitcoins">Envío de Bitcoins</string>
+    <string name="direccion_destino">Direccion destino</string>
+    <string name="monto_a_enviar">Monto a enviar (btc)</string>
+    <string name="comision">Comision</string>
+    <string name="enviar">Enviar</string>
+    <string name="total">Total (btc)</string>
+    <string name="rate">Rate</string>
+    <string name="waiting_state">WAITING</string>
+    <string name="completed_status">COMPLETED</string>
+    <string name="no_balance">NO_BALANCE</string>
 </resources>

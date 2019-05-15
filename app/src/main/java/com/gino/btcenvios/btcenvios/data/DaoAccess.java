@@ -1,6 +1,7 @@
 package com.gino.btcenvios.btcenvios.data;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -19,7 +20,7 @@ public interface DaoAccess {
     void insertOperation(SavedOperations operation);
 
     @Query("SELECT * FROM SavedOperations")
-    List<SavedOperations> fetchOperations();
+    LiveData<List<SavedOperations>> fetchOperations();
 
     @Query("SELECT * FROM Balance LIMIT 1")
     LiveData<Balance> fetchBalance();

@@ -2,7 +2,6 @@ package com.gino.btcenvios.btcenvios.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,13 +11,11 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.model.Balance;
-import com.gino.btcenvios.btcenvios.net.GetRatesServiceImpl;
+import com.gino.btcenvios.btcenvios.viewModel.BalanceViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private GetRatesServiceImpl service;
 
-    private FrameLayout vMainContent;
 
     BalanceViewModel viewModel;
 
@@ -47,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        vMainContent = findViewById(R.id.main_content);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         viewModel = ViewModelProviders.of(this).get(BalanceViewModel.class);
-        Balance balance = new Balance(100d);
+        Balance balance = new Balance(200000d);
         viewModel.insertBalance(balance);
 
         navigateTo(BalanceFragment.newInstance());
