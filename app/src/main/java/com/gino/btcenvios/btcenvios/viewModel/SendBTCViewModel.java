@@ -1,4 +1,4 @@
-package com.gino.btcenvios.btcenvios.view;
+package com.gino.btcenvios.btcenvios.viewModel;
 
 import android.app.Application;
 import android.util.Log;
@@ -41,11 +41,11 @@ public class SendBTCViewModel extends AndroidViewModel {
         mBalance = dataBase.daoAccess().fetchBalance();
     }
 
-    LiveData<Balance> getBalance() {
+    public LiveData<Balance> getBalance() {
         return mBalance;
     }
 
-    void insertBalance(Balance balance) {
+    public void insertBalance(Balance balance) {
         dataBase.daoAccess().deleteBalance();
         dataBase.daoAccess().insertBalance(balance);
     }
@@ -114,7 +114,7 @@ public class SendBTCViewModel extends AndroidViewModel {
         });
     }
 
-    public String setData(Operation operation, Balance balance){
+    public String setData(Operation operation, Balance balance) {
         //mocked send operation
         try {
             Thread.sleep(1000);
@@ -122,16 +122,16 @@ public class SendBTCViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
 
-        return isBalance(operation, balance)? "COMPLETED": "NO_BALANCE";
+        return isBalance(operation, balance) ? "COMPLETED" : "NO_BALANCE";
     }
 
     private boolean isBalance(Operation operation, Balance balance) {
-        return Double.parseDouble(operation.getTotal())  *
+        return Double.parseDouble(operation.getTotal()) *
                 Double.parseDouble(mRates.getValue().getRates().getARS_SELL()) <
                 balance.getCurrent();
     }
 
-    void insertOperation(Operation operation) {
+    public void insertOperation(Operation operation) {
         Random r = new Random();
         SavedOperations savedOp = new SavedOperations();
         savedOp.setAmount(operation.getAmount());

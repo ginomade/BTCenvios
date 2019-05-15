@@ -1,4 +1,4 @@
-package com.gino.btcenvios.btcenvios.view;
+package com.gino.btcenvios.btcenvios.viewModel;
 
 import android.app.Application;
 import android.util.Log;
@@ -33,17 +33,16 @@ public class BalanceViewModel extends AndroidViewModel {
         mBalance = dataBase.daoAccess().fetchBalance();
     }
 
-    LiveData<Balance> getBalance() {
+    public LiveData<Balance> getBalance() {
         return mBalance;
     }
 
-    void insertBalance(Balance balance) {
+    public void insertBalance(Balance balance) {
         dataBase.daoAccess().deleteBalance();
         dataBase.daoAccess().insertBalance(balance);
     }
 
     public LiveData<Rate> getRates() {
-        //if the list is null
         if (mRates == null) {
             mRates = new MutableLiveData<Rate>();
             loadRates();

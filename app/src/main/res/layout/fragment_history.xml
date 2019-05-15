@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mymodel"
-            type="com.gino.btcenvios.btcenvios.view.HistoryViewModel" />
+            type="com.gino.btcenvios.btcenvios.viewModel.HistoryViewModel" />
     </data>
 
     <LinearLayout

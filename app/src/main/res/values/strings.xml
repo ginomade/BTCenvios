@@ -17,4 +17,6 @@
     <string name="total">Total (btc)</string>
     <string name="rate">Rate</string>
     <string name="waiting_state">WAITING</string>
+    <string name="completed_status">COMPLETED</string>
+    <string name="no_balance">NO_BALANCE</string>
 </resources>

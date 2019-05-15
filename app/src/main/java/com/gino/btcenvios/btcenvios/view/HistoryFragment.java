@@ -6,17 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gino.btcenvios.BR;
 import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.model.SavedOperations;
-import com.gino.btcenvios.databinding.FragmentHistoryBinding;
+import com.gino.btcenvios.btcenvios.viewModel.HistoryViewModel;
 
 import java.util.List;
 

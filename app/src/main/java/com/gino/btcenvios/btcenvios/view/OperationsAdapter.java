@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gino.btcenvios.BR;
 import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.model.SavedOperations;
-import com.gino.btcenvios.databinding.OperationsItemViewBinding;
+import com.gino.btcenvios.btcenvios.viewModel.HistoryViewModel;
 
 import java.util.List;
 
 /**
  * @author gino.ghiotto
  */
-public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.GenericViewHolder>{
+public class OperationsAdapter extends RecyclerView.Adapter<OperationsAdapter.GenericViewHolder> {
 
     private HistoryViewModel viewModel;
     private List<SavedOperations> operations;
@@ -32,7 +32,7 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
         this.layoutId = layoutId;
     }
 
-    void setList(List<SavedOperations> ops){
+    public void setList(List<SavedOperations> ops) {
         operations = ops;
         notifyDataSetChanged();
     }
@@ -69,17 +69,17 @@ public class OperationsAdapter  extends RecyclerView.Adapter<OperationsAdapter.G
 
         void setViewModel(HistoryViewModel viewModel) {
             if (binding != null) {
-                binding.setVariable(BR.list, viewModel.getOperations().getValue());
+                binding.setVariable(BR.listItem, viewModel.getOperationAt(getAdapterPosition()));
 
             }
         }
 
-            void bind () {
-                if (binding == null) {
-                    binding = DataBindingUtil.bind(itemView);
-                }
+        void bind() {
+            if (binding == null) {
+                binding = DataBindingUtil.bind(itemView);
             }
-
         }
+
     }
+}
 

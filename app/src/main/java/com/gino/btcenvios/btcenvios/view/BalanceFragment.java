@@ -15,6 +15,7 @@ import com.gino.btcenvios.R;
 import com.gino.btcenvios.btcenvios.data.OperationsDataBase;
 import com.gino.btcenvios.btcenvios.model.Balance;
 import com.gino.btcenvios.btcenvios.model.Rate;
+import com.gino.btcenvios.btcenvios.viewModel.BalanceViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +67,7 @@ public class BalanceFragment extends Fragment {
                     @Override
                     public void onChanged(Rate rate) {
                         vBalanceBtc.setText(String.valueOf(mBalancePesos /
-                                Double.valueOf( rate.getRates().getARS_SELL())));
+                                Double.valueOf(rate.getRates().getARS_SELL())));
                     }
                 });
 

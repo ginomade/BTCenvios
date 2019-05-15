@@ -19,6 +19,7 @@ import com.gino.btcenvios.btcenvios.model.Balance;
 import com.gino.btcenvios.btcenvios.model.Fees;
 import com.gino.btcenvios.btcenvios.model.Operation;
 import com.gino.btcenvios.btcenvios.model.Rate;
+import com.gino.btcenvios.btcenvios.viewModel.SendBTCViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -123,15 +124,18 @@ public class SendFragment extends Fragment {
                     sendOperationData.setState(getContext().getString(R.string.waiting_state));
 
                     String result = sendViewModel.setData(sendOperationData, mBalance);
-                    if(result.equals("COMPLETED")){
+                    if (result.equals(getContext().getString(R.string.completed_status))) {
                         Balance newBalance = new Balance(mBalance.getCurrent() -
-                                Double.parseDouble(sendOperationData.getTotal())*
+                                Double.parseDouble(sendOperationData.getTotal()) *
                                         Double.parseDouble(sendOperationData.getRate()));
                         sendViewModel.insertBalance(newBalance);
+                        sendOperationData.setState(getContext().getString(R.string.completed_status));
                         sendViewModel.insertOperation(sendOperationData);
                         setStatusText("Operacion exitosa");
-                    }else{
+                    } else {
                         setStatusText("Balance Insuficiente");
+                        sendOperationData.setState(getContext().getString(R.string.no_balance));
+                        sendViewModel.insertOperation(sendOperationData);
                     }
                 }
             }
@@ -151,8 +155,8 @@ public class SendFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!vFee.getText().toString().equals("")
-                && !vAmount.getText().toString().equals("")
-                && sendOperationData.getRate() != null) {
+                        && !vAmount.getText().toString().equals("")
+                        && sendOperationData.getRate() != null) {
                     Double total = Double.parseDouble(vFee.getText().toString()) /
                             Double.parseDouble(sendOperationData.getRate())
                             + Double.parseDouble(vAmount.getText().toString());
